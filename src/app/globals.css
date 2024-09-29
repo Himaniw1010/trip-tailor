@@ -1,6 +1,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --base-color: #fff9e9;
+  --primary-color: #14213D;
+  --secondary-color: #FCA311;
+  --primary-accent-color: #AE2112;
+
+  /* Spacing */
+  --main-padding: 16px;
+  --border-radius: 6px;
+
+  /* Container */
+  --container: var(--main-padding) calc(var(--main-padding)*3);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -9,6 +20,22 @@
     --foreground: #ededed;
   }
 } */
+
+
+/* View Ports */
+
+
+@media screen and (min-width: 786px) {
+  :root {
+    --main-padding: 24px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --main-padding: 32px;
+  }
+}
 
 html,
 body {

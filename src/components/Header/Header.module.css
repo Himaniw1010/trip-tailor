@@ -1,4 +1,29 @@
 .wrapper {
-    padding: 20px;
-    border: 1px solid;
+    padding: var(--container);
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--base-color);
+}
+
+.logo {
+    width: 200px;
+    position: relative;
+}
+
+.nav {
+    /*  */
+}
+
+.navItems {
+    display: flex;
+    list-style-type: none;
+    width: fit-content;
+    gap: var(--main-padding);
+}
+
+.navItem {
+    flex: 1;
+    text-transform: uppercase;
+    min-width: fit-content;
+    font-weight: 500;
 }

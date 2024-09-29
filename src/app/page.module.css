@@ -11,7 +11,7 @@
   min-height: 100svh;
   /* padding: 80px; */
 
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-jost);
 }
 
 @media (prefers-color-scheme: dark) {
