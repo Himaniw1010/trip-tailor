@@ -20,10 +20,16 @@
     width: fit-content;
     gap: var(--main-padding);
 }
-
+.navItems > a:hover {
+    color: var(--primary-accent-color);
+}
 .navItem {
     flex: 1;
     text-transform: uppercase;
     min-width: fit-content;
     font-weight: 500;
+}
+.navItemIcon {
+    font-size: 1.3rem;
+    line-height: 0;
 }

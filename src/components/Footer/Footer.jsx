@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./Footer.module.css";
+import Link from "next/link";
 
 function Footer(props) {
   return (
@@ -15,9 +16,9 @@ function Footer(props) {
       </div>
       <nav className={styles.navbar}>
         <ul className={styles.navItems}>
-          <li className={styles.navItem}>Home</li>
-          <li className={styles.navItem}>About</li>
-          <li className={styles.navItem}>Itineraries</li>
+        <Link href="/" className={styles.navItem}>Home</Link>
+        <Link href="/about" className={styles.navItem}>About</Link>
+        <Link href="/itineraries" className={styles.navItem}>Itineraries</Link>
         </ul>
       </nav>
       <p className={styles.copyright}>

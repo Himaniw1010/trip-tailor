@@ -67,3 +67,38 @@ a {
     color-scheme: light;
   }
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: red;
+  --swiper-navigation-sides-offset: 0;
+  --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-size: 90px;
+
+
+  background-color: var(--base-color);
+}
+
+.swiper-button-prev {
+  border-radius: 0 70px 70px 0;
+}
+
+.swiper-button-next {
+  border-radius: 70px 0 0 70px;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+
+  position: relative;
+  color: var(--primary-accent-color);
+  font-size: 30px !important;
+}
+
+.swiper-button-prev::after {
+  left: -5px;
+}
+
+.swiper-button-next::after {
+  right: -5px;
+}

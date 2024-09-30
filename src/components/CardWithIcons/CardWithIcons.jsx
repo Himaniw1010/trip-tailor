@@ -24,7 +24,16 @@ function CardWithIcons({ heading }) {
   return (
     <div className={styles.wrapper}>
       <h2>{heading}</h2>
-      <ul className={styles.list}>{icons.map((i) => i.label)}</ul>
+      <ul className={styles.list}>{icons.map(({ icon, label }) =>
+        <li key={label} className={styles.listItem}>
+          <div className={styles.icon}>
+            {icon}
+          </div>
+          <span>
+            {label}
+          </span>
+        </li>
+      )}</ul>
     </div>
   );
 }

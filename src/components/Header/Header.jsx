@@ -1,5 +1,7 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
+import Link from "next/link";
+import { BiUserCircle } from "react-icons/bi";
 
 function Header(props) {
   return (
@@ -9,10 +11,12 @@ function Header(props) {
       </div>
       <nav className={styles.navbar}>
         <ul className={styles.navItems}>
-          <li className={styles.navItem}>Home</li>
-          <li className={styles.navItem}>About</li>
-          <li className={styles.navItem}>Itineraries</li>
+          <Link href="/" className={styles.navItem}>Home</Link>
+          <Link href="/about" className={styles.navItem}>About</Link>
+          <Link href="/itineraries" className={styles.navItem}>Itineraries</Link>
+          <Link href="/login" className={styles.navItemIcon}><BiUserCircle/></Link>
         </ul>
+        
       </nav>
     </header>
   );
