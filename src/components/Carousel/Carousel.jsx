@@ -20,12 +20,14 @@ function Carousel({heading,  slides }) {
         navigation
         scrollbar={{ draggable: true }}
       >
-        {slides.map((slide) =>
-          <SwiperSlide><Card data={slide}/></SwiperSlide>
+        {slides.map((slide ,i) =>
+          <SwiperSlide key={i + slide.country}><Card data={slide}/></SwiperSlide>
         )}
       </Swiper>
     </div>
   );
 }
+
+
 
 export default Carousel;

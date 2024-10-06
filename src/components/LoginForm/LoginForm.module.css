@@ -1,0 +1,32 @@
+.wrapper {
+    /*  */
+    padding: var(--container);
+    position: relative;
+    margin-bottom:var(--main-padding);
+    width: 100%;
+    &>h2 {
+        /* text-align: center; */
+        font-size: 36px;
+        padding: 0 0 var(--main-padding) 0 ;
+    }
+
+}
+
+.form_group {
+    /* border: 1px solid black; */
+    margin-bottom: var(--main-padding);
+    & label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+    }
+    & input {
+        width: 100%;
+        padding: 12px;
+        font-weight: 500;
+        background: var(--base-color);
+        border: none;
+        outline: none;
+    }
+
+}

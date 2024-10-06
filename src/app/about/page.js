@@ -23,7 +23,7 @@ export default function About() {
   }]
   return (
     <div className={styles.page}>
-      <Header />
+   
       <HeroSection aspectRatio="16/4"/>
       <CopyWithHeading
         heading="About TripTailor"
@@ -42,7 +42,7 @@ export default function About() {
 
 
       <SignUpBlock />
-      <Footer />
+
     </div>
   );
 }
