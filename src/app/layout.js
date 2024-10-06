@@ -2,12 +2,11 @@ import Header from "@/components/Header/Header";
 import "./globals.css";
 import { Jost } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
-import { cookies } from "next/headers";
 
 const jost = Jost({
   subsets: ["latin"],
   variable: "--font-jost",
-  weight: ["300", "400", "500", "600", "700", "900"], // Add the weights you need
+  weight: ["300", "400", "500", "600", "700", "900"],
   display: "swap",
 });
 
@@ -17,13 +16,10 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const cookieStore = cookies()
-  const isLoggedIn = cookieStore.has('session')
-
   return (
     <html lang="en">
       <body className={`${jost.variable}`}>
-        <Header hasLoggedIn={isLoggedIn}/>
+        <Header />
         {children}
         <Footer />
       </body>

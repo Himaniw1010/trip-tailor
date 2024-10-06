@@ -1,9 +1,13 @@
+"use client";
 import Image from "next/image";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import { BiExit, BiUserCircle } from "react-icons/bi";
+import useCookie from "@/hooks/useCookie";
 
 function Header({ hasLoggedIn }) {
+  const cookieValue = useCookie();
+
   return (
     <header className={styles.wrapper}>
       <div className={styles.logo}>
@@ -11,16 +15,35 @@ function Header({ hasLoggedIn }) {
       </div>
       <nav className={styles.navbar}>
         <ul className={styles.navItems}>
-          <Link href="/" className={styles.navItem}>Home</Link>
-          <Link href="/about" className={styles.navItem}>About</Link>
-          <Link href="/itineraries" className={styles.navItem}>Itineraries</Link>
-          
-          {!hasLoggedIn ?
-            <Link href="/login" className={styles.navItemIcon}><BiUserCircle /></Link> : 
-            <Link href="/logout" className={styles.navItemIcon}><BiExit /></Link>
-          }
-        </ul>
+          <li className={styles.navItem}>
+            <Link href="/">Home</Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/about">About</Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/itineraries">Itineraries</Link>
+          </li>
 
+          {!cookieValue ? (
+            <li className={styles.navItemIcon}>
+              <Link href="/login">
+                <BiUserCircle />
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li className={styles.navItem}>
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+              <li className={styles.navItemIcon}>
+                <Link href="/logout">
+                  <BiExit />
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
       </nav>
     </header>
   );

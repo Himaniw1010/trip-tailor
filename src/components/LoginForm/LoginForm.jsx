@@ -7,26 +7,28 @@ import { useEffect, useRef } from 'react'
 export default function LoginForm() {
   const [state, action] = useFormState(login, undefined)
   const formRef = useRef();
+
   useEffect(() => {
     if (state == true) {
       formRef.current.reset()
     }
   }, [state])
+
   return (
     <div className={styles.wrapper}>
       <h2>Login</h2>
       <form ref={formRef} action={action}>
         <div className={styles.form_group}>
-          <label htmlFor="email">Email</label>
-          <input id="email" name="email" placeholder="john@example.com" />
+          <label htmlFor="loginemail">Email</label>
+          <input id="loginemail" name="email" placeholder="john@example.com" />
           {state?.errors?.email && <span>{state.errors.email}</span>}
-          {state?.errors?.userExist && <span>User with this email address already exist.</span>}
+          {state?.errors?.userNotExist && <span>Incorrect Email. Please enter again</span>}
         </div>
 
         <div className={styles.form_group}>
-          <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" />
-
+          <label htmlFor="loginpassword">Password</label>
+          <input id="loginpassword" name="password" type="password" />
+          {state?.errors?.passwordIncorrect && <span>Incorrect Password. Please enter again</span>}
           {state?.errors?.password && (
             <div>
               <span>Password must:</span>
