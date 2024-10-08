@@ -1,0 +1,1 @@
+export const generateArray = (n) => Array(Number(n)).fill().map((_, i) => i + 1)

@@ -1,0 +1,36 @@
+.wrapper {
+    /*  */
+    padding: var(--main-padding) 20px;
+    position: relative;
+    margin: var(--main-padding) auto;
+    flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    gap: 30px;
+
+    &>h2 {
+        /* text-align: center; */
+        font-size: 36px;
+        padding: 0 0 var(--main-padding) 0;
+    }
+    
+    &:hover {
+        background-color: #f8f8f8;
+        & .delete {
+            opacity: 1;
+        }
+    }
+    border-bottom: 1.5px solid black;
+}
+.delete {
+    opacity: 0;
+    position: absolute;
+    right:10px;
+    top: 10px;
+    & svg {
+        transform: rotate(45deg);
+    }
+}
+
+

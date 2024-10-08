@@ -3,18 +3,21 @@ import styles from "./Button.module.css";
 
 function Button({
   label,
-  type = "primary",
+  type = "link",
+  variant = "primary",
   size = "md",
   icon,
   link = "/",
-  isSubmit = false
+  buttonType = "submit",
+  className,
+  onClick
 }) {
 
   {
-    return !isSubmit ? (<Link className={`${styles.wrapper} ${styles[`btn-${type}`]} ${styles[`btn-${size}`]}`} href={link}>
+    return type != "button" ? (<Link className={`${styles.wrapper} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]} ${className}`} href={link}>
       {label && label}
       {icon && icon}
-    </Link>) : (<button type="submit" className={`${styles.wrapper} ${styles[`btn-${type}`]} ${styles[`btn-${size}`]}`}>{label && label}
+    </Link>) : (<button type={buttonType} className={`${styles.wrapper} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]} ${className}`} onClick={onClick}>{label && label}
       {icon && icon}</button>)
   }
 };
