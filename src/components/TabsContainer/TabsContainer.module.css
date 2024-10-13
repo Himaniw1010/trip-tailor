@@ -1,6 +1,6 @@
 .wrapper {
     /*  */
-    /* padding: var(--container); */
+    padding: var(--container);
     position: relative;
     margin-bottom: var(--main-padding);
     width: 100%;
@@ -21,7 +21,7 @@
     padding: 20px;
 
     & .legend {
-        margin-left: 20px
+        margin-lefT: 20px
     }
 }
 
@@ -40,8 +40,6 @@
 }
 
 .col-12 {
-    min-width: 100%;
-    flex-grow: 1 !important;
     flex: 100%;
 }
 
@@ -56,12 +54,10 @@
         font-weight: 700;
     }
 
-    & input,
-    & textarea {
+    & input {
         width: 100%;
         padding: 12px;
         font-weight: 500;
-        font-family: var(--jost-font);
         background: var(--base-color);
         border: none;
         outline: none;
@@ -75,4 +71,9 @@
         color: var(--primary-accent-color)
     }
 
+}
+
+.add_activity {
+    /* position: absolute; */
+    float: right;
 }

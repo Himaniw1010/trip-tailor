@@ -7,30 +7,34 @@ export default function Input({
   type = "text",
   placeholder = "Enter Title",
   col = 4,
+  value,
   onChange = () => { },
-  state
+  state,
+  id
 }) {
-
+  const title = label.toLowerCase().replace(/ /g, '_');
+  const identifier = id ? `${id}__${title}` : title;
   return (
     <div
       className={`${styles.form_group} ${styles[`col-${col}`]}`}
     >
-      <label htmlFor={label.toLowerCase()}>{label}</label>
+      <label htmlFor={identifier}>{label}</label>
       {type == "textarea" ?
-        <textarea id={label.toLowerCase()}
+        <textarea id={identifier}
           type={type}
-          name={label.toLowerCase()}
+          name={identifier}
           placeholder={placeholder}
           onChange={onChange} /> :
         <input
-          id={label.toLowerCase()}
+          id={identifier}
           type={type}
-          name={label.toLowerCase()}
+          name={identifier}
           placeholder={placeholder}
           onChange={onChange}
+          value={value && value}
         />}
-      {state?.errors[[item.label.toLowerCase()]] && (
-        <span>{state.errors[item.label.toLowerCase()]}</span>
+      {state?.errors && state?.errors[identifier] && (
+        <span>{state.errors[identifier]}</span>
       )}
     </div>
   );

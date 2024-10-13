@@ -6,7 +6,7 @@ import { BiPlus } from 'react-icons/bi'; // Replace with your actual icon import
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 
-const ActivityForm = ({ n, id, onDeleteClick }) => {
+const ActivityForm = ({ id, onDeleteClick, state }) => {
   // const ffff = 
   // const currentRef = useRef()
   const handleClick = () => {
@@ -27,9 +27,9 @@ const ActivityForm = ({ n, id, onDeleteClick }) => {
         type="button"
         onClick={handleClick}
       />
-      <Input label="Activity Title" col={4}/> 
-      <Input type="time"label="Time" col={4}/>
-      <Input label="Description" type="textarea" col={12}/>
+      <Input state={state} id={id} label="Activity Title" col={4} placeholder='Enter Activity Title'/> 
+      <Input state={state} id={id} type="time"label="Time" col={4}/>
+      <Input state={state} id={id} label="Description" type="textarea" placeholder='Enter Description' col={12}/>
     </div>
   );
 }

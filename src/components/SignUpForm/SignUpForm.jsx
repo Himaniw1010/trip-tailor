@@ -3,6 +3,7 @@ import styles from './SignUpForm.module.css'
 import { useFormState, useFormStatus } from 'react-dom'
 import { signup } from '@/app/actions/auth'
 import { useEffect, useRef } from 'react'
+import Button from '../Button/Button'
 
 export default function SignupForm() {
   const [state, action] = useFormState(signup, undefined)
@@ -56,8 +57,6 @@ function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <button disabled={pending} type="submit">
-      Sign Up
-    </button>
+    <Button label="Sign Up" disabled={pending} buttonType="submit" type='button' variant='red' size="lg" />
   )
 }

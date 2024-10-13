@@ -1,10 +1,12 @@
 "use server";
-import { LoginFormSchema, SignupFormSchema } from "@/app/lib/definitions";
+import { formSchema, itinerarySchema, LoginFormSchema, SignupFormSchema } from "@/app/lib/definitions";
 import db from "../lib/firebase.config";
 import bcrypt from "bcrypt";
-import { collection, addDoc, getDocs, where, query } from "firebase/firestore";
-import { createSession } from "./session";
+import { collection, addDoc, getDocs, where, query, doc , Timestamp} from "firebase/firestore";
+import { createSession, getCurrentUser } from "./session";
 import { redirect } from "next/navigation";
+import parseDays from "@/utils/parseFormData";
+
 export async function signup(state, formData) {
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
@@ -87,7 +89,6 @@ export async function login(state, formData) {
         await createSession(querySnapshot.docs[0].id);
       }
     } else {
-      console.log("I am here");
       return {
         errors: {
           userNotExist: true,
@@ -97,6 +98,51 @@ export async function login(state, formData) {
   } catch (e) {
     console.error("Error adding document: ", e);
   } finally {
-    redirect("/");
+    redirect("/dashboard");
   }
+}
+
+export async function addItinerary(state, formData) {
+  let redirectUrl;
+  try {
+    //  Basic validation for title, country and duration field
+    const basicFieldsValidation = itinerarySchema.safeParse({
+      title: formData.get("title"),
+      country: formData.get("country"),
+      duration: Number(formData.get("duration")),
+      description: formData.get("description")
+    })
+    if (!basicFieldsValidation.success) {
+      return {
+        errors: basicFieldsValidation.error.flatten().fieldErrors,
+      };
+    }
+    let errorObject = {};
+
+    const validatedFields = formSchema.safeParse(parseDays(formData));
+
+    if (!validatedFields.success) {
+      validatedFields.error.errors.map((error) => {
+        errorObject[`Day-${error.path[0]}__${error.path[1]}__${error.path[2]}`] = error.message;
+      });
+
+      console.error('Form data validation failed', errorObject);
+      return {
+        errors: errorObject,
+      };
+    }
+
+    const finalObject = { createdAt: Timestamp.now(), userId: await getCurrentUser(), ...basicFieldsValidation.data, days: validatedFields.data };
+    const docRef = await addDoc(collection(db, "itineraries"), finalObject);
+    if (docRef) {
+      redirectUrl = "/dashboard";
+    }
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+  console.log(redirectUrl)
+  if (redirectUrl) {
+    redirect(redirectUrl)
+  }
+
 }

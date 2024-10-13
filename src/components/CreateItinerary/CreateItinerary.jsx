@@ -1,7 +1,7 @@
 "use client";
 import styles from "./CreateItinerary.module.css";
 import { useFormState, useFormStatus } from "react-dom";
-import { signup } from "@/app/actions/auth";
+import { addItinerary } from "@/app/actions/auth";
 import { useEffect, useRef, useState } from "react";
 import DayContainer from "../DayContainer/DayContainer";
 import Input from "../Input/Input";
@@ -9,13 +9,30 @@ import Button from "../Button/Button";
 import {generateArray} from "@/utils/generateArray";
 
 export default function CreateItinerary() {
-  const [dayCount, setDayCount] = useState(1);
+
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    setDays(['Day-1']);
+  }, []);
   const handleDurationChange = (e) => {
-    setDayCount(e.target.value);
+    const dayCount = parseInt(e.target.value);
+    console.log(dayCount)
+    
+    setDays((prev) => {
+      const newDays = [...prev];
+      if (dayCount > prev.length) {
+        for (let i = prev.length + 1; i <= dayCount; i++) {
+          newDays.push(`Day-${i}`);
+        }
+      } else if (dayCount < prev.length) {
+        newDays.splice(dayCount);
+      }
+      return newDays;
+    });
+
+    console.log(days)
   };
-
-
-
 
   const formFields = [
     { label: "Title", type: "text", placeholder: "Enter Title", col: 4 },
@@ -25,33 +42,34 @@ export default function CreateItinerary() {
       type: "number",
       min: 1,
       placeholder: "1",
+      value:days.length ,
       col: 4,
       onChange: handleDurationChange,
     },
-    { label: "Budget", type: "text", placeholder: "Enter Budget($)", col: 4 },
+    { label: "Description", type: "textarea", placeholder: "Enter Description", col: 12 },
   ];
-
-  const [state, action] = useFormState(signup, undefined);
-  const formRef = useRef();
+  const [state, action] = useFormState(addItinerary, undefined);
+  // const formRef = useRef();
+  
   useEffect(() => {
-    if (state == true) {
-      formRef.current.reset();
-    }
+    console.log(state)
   }, [state]);
+
+
   return (
     <div className={styles.wrapper}>
       <h2>Create Itinerary</h2>
-      <form ref={formRef} action={action} className={styles.formContainer}>
+      <form action={action} className={styles.formContainer}>
         {/* Print Basic Fields */}
         {formFields.map((item, index) => {
           return (
-            <Input {...item} state={state} />
+            <Input key={"i"+ index}{...item} state={state} />
           );
         })}
 
         {/* Print Days */}
-        {dayCount > 0 && generateArray(dayCount).map((item) => {
-          return <DayContainer n={item} />;
+        { days.map((item) => {
+          return <DayContainer key={item} n={item} state={state}/>;
         })}
 
         <SubmitButton />

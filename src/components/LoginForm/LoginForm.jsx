@@ -3,6 +3,7 @@ import styles from './LoginForm.module.css'
 import { useFormState, useFormStatus } from 'react-dom'
 import { login } from '@/app/actions/auth'
 import { useEffect, useRef } from 'react'
+import Button from '../Button/Button'
 
 export default function LoginForm() {
   const [state, action] = useFormState(login, undefined)
@@ -39,8 +40,9 @@ export default function LoginForm() {
               </ul>
             </div>
           )}
-        
+
         </div>
+
         <SubmitButton />
 
       </form>
@@ -52,8 +54,6 @@ function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <button disabled={pending} type="submit">
-      Login
-    </button>
+    <Button label="Login" disabled={pending} buttonType="submit" type='button' variant='red' size="lg" />
   )
 }
