@@ -2,14 +2,15 @@
     /*  */
     padding: 28px 50px;
     position: relative;
-    aspect-ratio: 16/8;
+    aspect-ratio: 16/9;
     overflow-x: hidden;
     border-radius: 6px;
 }
-.content 
-{
+
+.content {
     position: absolute;
     bottom: 28px;
+
     & span {
         font-size: 18px;
         text-transform: uppercase;
@@ -17,6 +18,7 @@
         color: var(--secondary-color);
         line-height: 1;
     }
+
     & p {
         font-size: 38px;
         text-transform: uppercase;

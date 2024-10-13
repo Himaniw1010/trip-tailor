@@ -20,5 +20,11 @@
 
 .cardsContainer {
     /* border: 1px solid red; */
-    
+
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--main-padding);
 }

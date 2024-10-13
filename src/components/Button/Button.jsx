@@ -2,6 +2,7 @@ import Link from "next/link";
 import styles from "./Button.module.css";
 
 function Button({
+  id,
   label,
   type = "link",
   variant = "primary",
@@ -14,10 +15,10 @@ function Button({
 }) {
 
   {
-    return type != "button" ? (<Link className={`${styles.wrapper} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]} ${className}`} href={link}>
+    return type != "button" ? (<Link id={id} className={`${styles.wrapper} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]} ${className}`} href={link}>
       {label && label}
       {icon && icon}
-    </Link>) : (<button type={buttonType} className={`${styles.wrapper} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]} ${className}`} onClick={onClick}>{label && label}
+    </Link>) : (<button id={id}type={buttonType} className={`${styles.wrapper} ${styles[`btn-${variant}`]} ${styles[`btn-${size}`]} ${className}`} onClick={onClick}>{label && label}
       {icon && icon}</button>)
   }
 };

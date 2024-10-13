@@ -12,68 +12,20 @@
         font-size: 36px;
         padding: 0 0 var(--main-padding) 0;
     }
-
-
-
 }
 
-.fieldset {
-    padding: 20px;
-
-    & .legend {
-        margin-lefT: 20px
-    }
-}
-
-
-.formContainer {
+.tabSelectors {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--main-padding);
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.col-4 {
-    min-width: 30%;
-    flex: 1;
-    flex-grow: 1 !important;
-    margin-bottom: 0 !important;
+.active {
+    background-color: var(--primary-accent-color);
+    color: var(--base-color);
 }
 
-.col-12 {
-    flex: 100%;
-}
-
-.form_group {
-    flex-grow: 0;
-    /* border: 1px solid black; */
-    margin-bottom: var(--main-padding);
-
-    & label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 700;
-    }
-
-    & input {
-        width: 100%;
-        padding: 12px;
-        font-weight: 500;
-        background: var(--base-color);
-        border: none;
-        outline: none;
-    }
-
-    & ul {
-        list-style: none;
-    }
-
-    & span {
-        color: var(--primary-accent-color)
-    }
-
-}
-
-.add_activity {
-    /* position: absolute; */
-    float: right;
+.content {
+    background-color: var(--base-color);
+    padding: var(--main-padding);
 }
