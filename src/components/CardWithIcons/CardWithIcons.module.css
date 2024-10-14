@@ -27,7 +27,7 @@
         font-weight: 500;
     }
 
-    &>.icon>svg {
+    & .icon {
         color: var(--primary-accent-color);
         font-size: 80px;
         height: fit-content;
@@ -53,7 +53,7 @@
             font-size: 24px;
         }
 
-        &>.icon>svg {
+        & .icon {
             font-size: 120px;
         }
     }
