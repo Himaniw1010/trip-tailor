@@ -1,7 +1,6 @@
 import CardContainer from "@/components/CardContainer/CardContainer";
 import styles from "./page.module.css";
 import CopyWithHeading from "@/components/CopyWithHeading/CopyWithHeading";
-
 import HeroSection from "@/components/HeroSection/HeroSection";
 import { collection, getDocs } from "firebase/firestore";
 import db from "../lib/firebase.config";
@@ -18,6 +17,7 @@ async function getData() {
       country: docData.country,
       description: docData.description,
       userId: docData.userId,
+      image:docData.image,
       createdAt: docData.createdAt.toDate().toISOString(), // Convert Firestore timestamp to ISO string
     };
   });
@@ -29,7 +29,7 @@ async function getData() {
 
 export default async function Page() {
   const { data } = await getData();
-  // console.log(dat);
+  // console.log(data);
   return (
     <div className={styles.page}>
       <HeroSection aspectRatio="16/4" />

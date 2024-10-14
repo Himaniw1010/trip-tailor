@@ -44,6 +44,7 @@ export async function getCurrentUser() {
 
   return userInfo.userId
 }
+
 export async function createSession(userId) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const session = await encrypt({ userId, expiresAt });

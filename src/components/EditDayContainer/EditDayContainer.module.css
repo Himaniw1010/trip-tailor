@@ -3,6 +3,7 @@
     margin-bottom: var(--main-padding);
     width: 100%;
     flex-grow: 1;
+
     &>h2 {
         font-size: 36px;
         padding: 0 0 var(--main-padding) 0;
@@ -37,6 +38,7 @@
 
 .form_group {
     flex-grow: 0;
+    /* border: 1px solid black; */
     margin-bottom: var(--main-padding);
 
     & label {
@@ -65,5 +67,6 @@
 }
 
 .add_activity {
+    /* position: absolute; */
     float: right;
 }

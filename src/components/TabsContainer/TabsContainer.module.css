@@ -1,14 +1,11 @@
 .wrapper {
-    /*  */
     padding: var(--container);
     position: relative;
     margin-bottom: var(--main-padding);
     width: 100%;
     flex-grow: 1;
-    /* display: flex; */
 
     &>h2 {
-        /* text-align: center; */
         font-size: 36px;
         padding: 0 0 var(--main-padding) 0;
     }
@@ -29,3 +26,4 @@
     background-color: var(--base-color);
     padding: var(--main-padding);
 }
+

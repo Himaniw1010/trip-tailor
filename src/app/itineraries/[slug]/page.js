@@ -23,6 +23,7 @@ async function getData(slug) {
       country: docData.country,
       description:docData.description,
       userId: docData.userId,
+      image: docData.image,
       createdAt: docData.createdAt.toDate().toISOString(), // Convert Firestore timestamp to ISO string
     };
   });
@@ -34,10 +35,10 @@ async function getData(slug) {
 
 export default async function About({ params }) {
   const {data} = await getData(params.slug)
-  console.log(data)
+  // console.log(data)
   return (
     <div className={styles.page}>
-      <HeroSection aspectRatio="16/3" />
+      <HeroSection imageUrl={data.image}  aspectRatio="16/3" />
       <ItineraryContent title={data.title} country={data.country} description={data.description}/>
       <TabsContainer days={data.days} />
     </div>

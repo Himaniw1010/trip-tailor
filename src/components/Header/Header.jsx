@@ -2,18 +2,33 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
 import Link from "next/link";
-import { BiExit, BiUserCircle } from "react-icons/bi";
+import { BiExit, BiMenuAltRight, BiPlus, BiPlusCircle, BiUserCircle } from "react-icons/bi";
 import useCookie from "@/hooks/useCookie";
+import useDeviceType from "@/hooks/useDeviceType";
+import { useState } from "react";
 
-function Header({ hasLoggedIn }) {
+function Header() {
+  const [open, setOpen] = useState(false)
   const cookieValue = useCookie();
-
+  const isMobile = useDeviceType() === "mobile";
+  const openMenu = () => {
+    setOpen(true)
+  }
+  const closeMenu = () => {
+    setOpen(false)
+  }
   return (
     <header className={styles.wrapper}>
       <div className={styles.logo}>
         <Image src="/assets/logo.svg" fill objectFit="contain" alt="logo" />
       </div>
-      <nav className={styles.navbar}>
+      {isMobile && <div className={styles.hamburger} onClick={openMenu}>
+        <BiMenuAltRight />
+      </div>}
+      <nav className={`${styles.navbar} ${isMobile && styles.mobileNav} ${isMobile && open && styles.open}`}>
+      {isMobile && <div className={styles.close} onClick={closeMenu}>
+        <BiPlus />
+      </div>}
         <ul className={styles.navItems}>
           <li className={styles.navItem}>
             <Link href="/">Home</Link>
@@ -36,9 +51,9 @@ function Header({ hasLoggedIn }) {
               <li className={styles.navItem}>
                 <Link href="/dashboard">Dashboard</Link>
               </li>
-              <li className={styles.navItemIcon}>
-                <Link href="/logout">
-                  <BiExit />
+              <li className={isMobile ? styles.navItem :styles.navItemIcon}>
+                <Link href="/logout" prefetch={false}>
+                  {isMobile ? "Logout" :<BiExit />}
                 </Link>
               </li>
             </>

@@ -6,10 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import DayContainer from "../DayContainer/DayContainer";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import {generateArray} from "@/utils/generateArray";
+import ImageInput from "../ImageInput/ImageInput";
+import useDeviceType from "@/hooks/useDeviceType";
 
 export default function CreateItinerary() {
-
+  const deviceType = useDeviceType();
   const [days, setDays] = useState([]);
 
   useEffect(() => {
@@ -17,8 +18,8 @@ export default function CreateItinerary() {
   }, []);
   const handleDurationChange = (e) => {
     const dayCount = parseInt(e.target.value);
-    console.log(dayCount)
-    
+    // console.log(dayCount)
+
     setDays((prev) => {
       const newDays = [...prev];
       if (dayCount > prev.length) {
@@ -31,18 +32,18 @@ export default function CreateItinerary() {
       return newDays;
     });
 
-    console.log(days)
+    // console.log(days)
   };
 
   const formFields = [
-    { label: "Title", type: "text", placeholder: "Enter Title", col: 4 },
+    { label: "Title", type: "text", placeholder: "Enter Title", col: deviceType == "mobile" ? 12 : 4 },
     { label: "Country", type: "text", placeholder: "Enter Country", col: 4 },
     {
       label: "Duration",
       type: "number",
       min: 1,
       placeholder: "1",
-      value:days.length ,
+      value: days.length,
       col: 4,
       onChange: handleDurationChange,
     },
@@ -50,7 +51,7 @@ export default function CreateItinerary() {
   ];
   const [state, action] = useFormState(addItinerary, undefined);
   // const formRef = useRef();
-  
+
   useEffect(() => {
     console.log(state)
   }, [state]);
@@ -59,17 +60,22 @@ export default function CreateItinerary() {
   return (
     <div className={styles.wrapper}>
       <h2>Create Itinerary</h2>
-      <form action={action} className={styles.formContainer}>
+      <form action={action} className={styles.formContainer} enctype="multipart/form-data">
         {/* Print Basic Fields */}
-        {formFields.map((item, index) => {
-          return (
-            <Input key={"i"+ index}{...item} state={state} />
-          );
-        })}
+        <div className={styles.flex}>
+          <ImageInput state={state} className={styles.image}/>
+          <div className={styles.basicFields}>
+            {formFields.map((item, index) => {
+              return (
+                <Input key={"i" + index}{...item} state={state} />
+              );
+            })}
+          </div>
+        </div>
 
         {/* Print Days */}
-        { days.map((item) => {
-          return <DayContainer key={item} n={item} state={state}/>;
+        {days.map((item) => {
+          return <DayContainer key={item} n={item} state={state} />;
         })}
 
         <SubmitButton />
@@ -82,6 +88,6 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button disabled={pending} variant="red" size="lg" label="Sign Up" buttonType="submit" type="button" />
+    <Button disabled={pending} variant="red" size="lg" label="Submit" buttonType="submit" type="button" />
   );
 }

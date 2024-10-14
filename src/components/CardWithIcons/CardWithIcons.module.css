@@ -8,27 +8,53 @@
     gap: calc(var(--main-padding));
 
     &>h2 {
-        font-size: 36px;
+        font-size: 24px;
     }
 }
 
 .list {
-    display: flex;
+    display: grid;
     list-style-type: none;
-    gap: calc(var(--main-padding)*3);
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--main-padding));
 }
 
 .listItem {
     text-align: center;
 
     &>span {
-        font-size: 24px;
+        font-size: 16px;
         font-weight: 500;
     }
 
     &>.icon>svg {
         color: var(--primary-accent-color);
-        font-size: 120px;
+        font-size: 80px;
         height: fit-content;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .list {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .wrapper {
+        &>h2 {
+            font-size: 36px;
+        }
+    }
+    .listItem {
+
+        &>span {
+            font-size: 24px;
+        }
+
+        &>.icon>svg {
+            font-size: 120px;
+        }
     }
 }

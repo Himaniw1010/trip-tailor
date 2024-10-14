@@ -4,9 +4,10 @@ import Button from "../Button/Button";
 import styles from "./CardContainer.module.css";
 import HorizontalCard from "../HorizontalCard/HorizontalCard";
 import Card from "../Card/Card";
+import useDeviceType from "@/hooks/useDeviceType";
 
 function CardContainer({ heading, cards, type = "list" }) {
-  console.log(cards);
+  const devideType = useDeviceType()
   return (
     <div className={styles.wrapper}>
       {heading && (
@@ -14,7 +15,7 @@ function CardContainer({ heading, cards, type = "list" }) {
           <h2>{heading}</h2>
           <Button
             type="primary"
-            size="md"
+            size={devideType == "mobile" ? "sm" : devideType == "tablet" ? "md" : "lg"}
             label={"Create"}
             variant="red"
             icon={<BiPlus />}
@@ -23,8 +24,8 @@ function CardContainer({ heading, cards, type = "list" }) {
         </div>
       )}
       <div className={`${styles.cardsContainer} ${type === "grid" && styles.grid}`}>
-        {cards.map((card) => {
-          return type === "list" ? <HorizontalCard card={card} /> : <Card data={card}/>;
+        {cards.map((card, i) => {
+          return type === "list" ? <HorizontalCard key={`listItem_${i}`} card={card} /> : <Card key={`listItem_${i}`} data={card}/>;
         })}
       </div>
     </div>

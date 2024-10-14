@@ -10,21 +10,26 @@
     justify-content: space-between;
     align-items: center;
     flex-grow: 0;
+    padding: 0 0 var(--main-padding) 0;
 }
 
 .wrapper h2 {
     text-align: left;
-    font-size: 48px;
-    padding: 0 0 var(--main-padding) 0;
-}
-
-.cardsContainer {
-    /* border: 1px solid red; */
-
+    font-size: 24px;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--main-padding);
+}
+
+@media screen and (min-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .wrapper h2 {
+        text-align: left;
+        font-size: 34px;
+    }
 }

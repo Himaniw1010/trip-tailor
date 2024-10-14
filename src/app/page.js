@@ -22,6 +22,7 @@ async function getData() {
       country: docData.country,
       description: docData.description,
       userId: docData.userId,
+      image: docData.image,
       createdAt: docData.createdAt.toDate().toISOString(), // Convert Firestore timestamp to ISO string
     };
   });

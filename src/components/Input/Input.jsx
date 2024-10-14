@@ -10,7 +10,8 @@ export default function Input({
   value,
   onChange = () => { },
   state,
-  id
+  id,
+  accept
 }) {
   const title = label.toLowerCase().replace(/ /g, '_');
   const identifier = id ? `${id}__${title}` : title;
@@ -23,12 +24,14 @@ export default function Input({
         <textarea id={identifier}
           type={type}
           name={identifier}
+          value={value}
           placeholder={placeholder}
           onChange={onChange} /> :
         <input
           id={identifier}
           type={type}
           name={identifier}
+          accept={accept}
           placeholder={placeholder}
           onChange={onChange}
           value={value && value}

@@ -2,7 +2,7 @@ import Header from "@/components/Header/Header";
 import "./globals.css";
 import { Jost } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
-
+export const revalidate = 0;
 const jost = Jost({
   subsets: ["latin"],
   variable: "--font-jost",

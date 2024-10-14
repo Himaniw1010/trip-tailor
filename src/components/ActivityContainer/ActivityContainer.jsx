@@ -7,7 +7,7 @@ function formatTime(timeString) {
   return (hour % 12 || 12) + ":" + minute + (hour < 12 ? " AM" : " PM");
 }
 export default function ActivityContainer({ activity }) {
-  console.log(activity);
+  // console.log(activity);
   return (
     <div className={styles.wrapper}>
       <div className={styles.metaContainer}>

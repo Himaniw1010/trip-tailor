@@ -1,11 +1,12 @@
 "use server";
 import { formSchema, itinerarySchema, LoginFormSchema, SignupFormSchema } from "@/app/lib/definitions";
-import db from "../lib/firebase.config";
+import db, { storageDB } from "../lib/firebase.config";
 import bcrypt from "bcrypt";
-import { collection, addDoc, getDocs, where, query, doc , Timestamp} from "firebase/firestore";
+import { collection, addDoc, getDocs, where, query, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { createSession, getCurrentUser } from "./session";
 import { redirect } from "next/navigation";
 import parseDays from "@/utils/parseFormData";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export async function signup(state, formData) {
   // Validate form fields
@@ -104,13 +105,15 @@ export async function login(state, formData) {
 
 export async function addItinerary(state, formData) {
   let redirectUrl;
+  const image = formData.get("image");
   try {
     //  Basic validation for title, country and duration field
     const basicFieldsValidation = itinerarySchema.safeParse({
       title: formData.get("title"),
       country: formData.get("country"),
       duration: Number(formData.get("duration")),
-      description: formData.get("description")
+      description: formData.get("description"),
+      image: image
     })
     if (!basicFieldsValidation.success) {
       return {
@@ -132,7 +135,16 @@ export async function addItinerary(state, formData) {
       };
     }
 
-    const finalObject = { createdAt: Timestamp.now(), userId: await getCurrentUser(), ...basicFieldsValidation.data, days: validatedFields.data };
+    // Reference to the 'images/' directory in Firebase Storage
+
+
+    const file = basicFieldsValidation.data.image; // Assuming 'image' is the key for the file in your validation data
+    const imagesRef = ref(storageDB, `images/${file.name}`);
+    const downloadURL = await uploadBytes(imagesRef, file).then(async (snapshot) => {
+      return await getDownloadURL(snapshot.ref);
+    });
+
+    const finalObject = { createdAt: Timestamp.now(), userId: await getCurrentUser(),  ...basicFieldsValidation.data,image: downloadURL, days: validatedFields.data };
     const docRef = await addDoc(collection(db, "itineraries"), finalObject);
     if (docRef) {
       redirectUrl = "/dashboard";
@@ -140,9 +152,62 @@ export async function addItinerary(state, formData) {
   } catch (e) {
     console.error("Error adding document: ", e);
   }
-  console.log(redirectUrl)
+  // console.log(redirectUrl)
   if (redirectUrl) {
     redirect(redirectUrl)
   }
+}
 
+export async function editItinerary(state, formData) {
+  let redirectUrl;
+  const id = formData.get("id");
+  const image = formData.get("image");
+  try {
+    //  Basic validation for title, country and duration field
+    const basicFieldsValidation = itinerarySchema.safeParse({
+      title: formData.get("title"),
+      country: formData.get("country"),
+      duration: Number(formData.get("duration")),
+      description: formData.get("description"),
+      image: image
+    })
+    if (!basicFieldsValidation.success) {
+      return {
+        errors: basicFieldsValidation.error.flatten().fieldErrors,
+      };
+    }
+    let errorObject = {};
+
+    const validatedFields = formSchema.safeParse(parseDays(formData));
+
+    if (!validatedFields.success) {
+      validatedFields.error.errors.map((error) => {
+        errorObject[`Day-${error.path[0]}__${error.path[1]}__${error.path[2]}`] = error.message;
+      });
+
+      console.error('Form data validation failed', errorObject);
+      return {
+        errors: errorObject,
+      };
+    }
+    const file = basicFieldsValidation.data.image; // Assuming 'image' is the key for the file in your validation data
+    const imagesRef = ref(storageDB, `images/${file.name}`);
+    const downloadURL = await uploadBytes(imagesRef, file).then(async (snapshot) => {
+      return await getDownloadURL(snapshot.ref);
+    });
+
+    const finalObject = { createdAt: Timestamp.now(), userId: await getCurrentUser(),  ...basicFieldsValidation.data,image: downloadURL, days: validatedFields.data };
+    
+    const washingtonRef = doc(db, "itineraries", id);
+
+    await updateDoc(washingtonRef, finalObject);
+    redirectUrl = "/dashboard";
+
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+
+  if (redirectUrl) {
+    redirect(redirectUrl)
+  }
 }

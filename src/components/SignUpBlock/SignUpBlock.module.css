@@ -5,9 +5,14 @@
     align-items: center;
     background-color: var(--base-color);
     gap: calc(var(--main-padding)/1.50);
-    /* color: var(--background); */
 }
 
 .wrapper>h3 {
-    font-size: 36px;
+    font-size: 18px;
+}
+
+@media screen and (min-width:768px) {
+    .wrapper>h3 {
+        font-size: 22px;
+    }
 }

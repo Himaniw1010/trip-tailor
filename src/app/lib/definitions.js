@@ -1,4 +1,6 @@
 import { z } from 'zod'
+export const MAX_FILE_SIZE = 5 * 1024 * 1024;
+export const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/avif"];
 
 export const SignupFormSchema = z.object({
     name: z
@@ -28,7 +30,10 @@ export const itinerarySchema = z.object({
     title: z.string().min(2, { message: "Itinerary Title must be at least 2 characters long" }),
     country: z.string().min(2, { message: "Country name must be at least 2 characters long" }),
     duration: z.number().min(1, { message: "Duration must be at least 1 day" }),
-    description: z.string().min(30, { message: "Description must be at least 30 characters long" })
+    description: z.string().min(30, { message: "Description must be at least 30 characters long" }),
+    image: z.instanceof(File, { message: "Image is required" })
+    .refine((file) => file.size <= MAX_FILE_SIZE, { message: "Max image size is 5MB." })
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), { message: "Only .jpg, .jpeg, .png, and .webp formats are supported." })
 })
 const timeRegex = /^(0?[0-9]|1[0-9]|2[0-3]):([0-5][0-9]) ?([APap][mM])?$/;
 // Define the schema for an activity

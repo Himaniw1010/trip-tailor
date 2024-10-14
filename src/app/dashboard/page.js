@@ -1,3 +1,4 @@
+"use server"
 import { collection, getDocs, query, where } from "firebase/firestore";
 import styles from "./page.module.css";
 import Button from "@/components/Button/Button";
@@ -18,6 +19,7 @@ export default async function Dashboard() {
       title: docData.title,
       country: docData.country,
       userId: docData.userId,
+      image:docData.image,
       createdAt: docData.createdAt.toDate().toISOString(), // Convert Firestore timestamp to ISO string
     };
   });
