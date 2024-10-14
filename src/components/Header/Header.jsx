@@ -2,12 +2,13 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
 import Link from "next/link";
-import { BiExit, BiMenuAltRight, BiPlus, BiPlusCircle, BiUserCircle } from "react-icons/bi";
+import { BiExit, BiMenuAltRight, BiPlus, BiUserCircle } from "react-icons/bi";
 import useCookie from "@/hooks/useCookie";
 import useDeviceType from "@/hooks/useDeviceType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Header() {
+
   const [open, setOpen] = useState(false)
   const cookieValue = useCookie();
   const isMobile = useDeviceType() === "mobile";
@@ -17,6 +18,7 @@ function Header() {
   const closeMenu = () => {
     setOpen(false)
   }
+
   return (
     <header className={styles.wrapper}>
       <div className={styles.logo}>
@@ -30,28 +32,28 @@ function Header() {
         <BiPlus />
       </div>}
         <ul className={styles.navItems}>
-          <li className={styles.navItem}>
+          <li className={styles.navItem} onClick={closeMenu}>
             <Link href="/">Home</Link>
           </li>
-          <li className={styles.navItem}>
+          <li className={styles.navItem} onClick={closeMenu}>
             <Link href="/about">About</Link>
           </li>
-          <li className={styles.navItem}>
+          <li className={styles.navItem} onClick={closeMenu}>
             <Link href="/itineraries">Itineraries</Link>
           </li>
 
           {!cookieValue ? (
-            <li className={styles.navItemIcon}>
+            <li className={styles.navItemIcon} onClick={closeMenu}>
               <Link href="/login">
                 <BiUserCircle />
               </Link>
             </li>
           ) : (
             <>
-              <li className={styles.navItem}>
+              <li className={styles.navItem} onClick={closeMenu}>
                 <Link href="/dashboard">Dashboard</Link>
               </li>
-              <li className={isMobile ? styles.navItem :styles.navItemIcon}>
+              <li className={isMobile ? styles.navItem :styles.navItemIcon} onClick={closeMenu}>
                 <Link href="/logout" prefetch={false}>
                   {isMobile ? "Logout" :<BiExit />}
                 </Link>
